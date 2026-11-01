@@ -39,11 +39,16 @@ llm = ChatGoogleGenerativeAI(
 _THREAD_RETRIEVERS: Dict[str, Any] = {}
 _THREAD_METADATA: Dict[str, dict] = {}
 
+_LAST_GLOBAL_RETRIEVER = None
+
 def _get_retriever(thread_id: Optional[str]):
-    """Fetch the retriever for a thread if available."""
+    """Fetch the retriever for a thread if available, with a global fallback."""
+    global _LAST_GLOBAL_RETRIEVER
     if thread_id and thread_id in _THREAD_RETRIEVERS:
         return _THREAD_RETRIEVERS[thread_id]
-    return None
+    if _THREAD_RETRIEVERS:
+        return list(_THREAD_RETRIEVERS.values())[-1]
+    return _LAST_GLOBAL_RETRIEVER
 
 
 def ingest_pdf(file_bytes: bytes, thread_id: str, filename: Optional[str] = None) -> dict:
@@ -77,8 +82,9 @@ def ingest_pdf(file_bytes: bytes, thread_id: str, filename: Optional[str] = None
         retriever = vector_store.as_retriever(
             search_type="similarity", search_kwargs={"k": 4}
         )
-
+        global _LAST_GLOBAL_RETRIEVER
         _THREAD_RETRIEVERS[str(thread_id)] = retriever
+        _LAST_GLOBAL_RETRIEVER = retriever
         _THREAD_METADATA[str(thread_id)] = {
             "filename": filename or os.path.basename(temp_path),
             "documents": len(docs),
