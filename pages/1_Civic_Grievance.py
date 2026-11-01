@@ -118,16 +118,15 @@ if submit_button:
                 if not is_key_valid:
                     st.error("❌ Cannot submit: Please fix or remove the invalid API key in the sidebar.")
                 else:
-                    backend_url = "http://localhost:8000/api/civic-grievance"
+                    backend_url = os.getenv("BACKEND_URL", "http://localhost:8000") + "/api/civic-grievance"
                 
-                # Prepare headers to send valid user API key
-                headers = {}
-                if active_key:
-                    headers["Gemini-Api-Key"] = active_key
+                    # Prepare headers to send valid user API key
+                    headers = {}
+                    if active_key:
+                        headers["Gemini-Api-Key"] = active_key
 
                 response = requests.post(backend_url, data=data, files=files if files else None, headers=headers)
-                
-                response = requests.post(backend_url, data=data, files=files if files else None, headers=headers)
+                   
                 if response.status_code == 200:
                     result = response.json()
                     complaint_letter = result.get("complaint_letter", "")
