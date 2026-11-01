@@ -8,7 +8,7 @@ This workspace provides a centralized, dual-application suite designed to proces
 
 1. 🏛️ Civic Grievance Reporter (Problem 1)
 
-Multimodal Ingestion: Accepts images/documents, user description text, and voice audio recordings (Hindi/English).
+Multimodal Ingestion: Accepts images/documents, user description text.
 
 Automated Processing: Analyzes public infrastructure complaints, auto-detects administrative authority levels, translates voice notes, and formats official administrative letters.
 

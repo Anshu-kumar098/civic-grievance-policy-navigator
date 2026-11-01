@@ -51,12 +51,12 @@ with col1:
     st.markdown('<span class="badge badge-blue">Multimodal Processing</span>', unsafe_allow_html=True)
     st.subheader("🏛️ Civic Grievance Reporter")
     st.write(
-        "Analyze public infrastructure photos, document uploads, or voice recordings in local languages. "
+        "Analyze public infrastructure photos, document uploads. "
         "Automatically generates legally persuasive, formatted official administrative complaint letters."
     )
     
     st.markdown("**Key Capabilities:**")
-    st.markdown("• Multimodal visual & audio input analysis\n• Department auto-detection & routing\n• Exportable PDF complaint letters")
+    st.markdown("• Multimodal visual & text input analysis\n• Department auto-detection & routing\n• Exportable PDF complaint letters")
     
     if st.button("Open Grievance Reporter ➔", key="btn_p1", use_container_width=True, type="primary"):
         st.switch_page("pages/1_Civic_Grievance.py")

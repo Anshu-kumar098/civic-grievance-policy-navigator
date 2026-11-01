@@ -53,7 +53,7 @@ with st.form(key="grievance_form"):
 
     user_text = st.text_area(
         "Citizen Notes & Location Details (Optional):",
-        placeholder="e.g., Large waterlogged pothole near Central Market Crossing, MG Road, Ward 12."
+        placeholder="write the detail of place and address. e.g., Large waterlogged pothole near Central Market Crossing, MG Road, Ward 12."
     )
 
     uploaded_file = st.file_uploader(
@@ -67,7 +67,7 @@ with st.form(key="grievance_form"):
 # Processing logic after form submission
 if submit_button:
     if not uploaded_file and not user_text.strip():
-        st.warning("⚠️ Please provide at least an image/document, text description")
+        st.warning("⚠️ Please provide an image/document and text description")
     else:
         with st.spinner("Analyzing upload and drafting official complaint letter..."):
             try:

@@ -47,7 +47,6 @@ def civic_grievance_reporter():
         prompt_instruction = (
             "You are an expert administrative legal assistant and civic grievance specialist.\n"
             "Your objective is to draft an authoritative, formal, and legally persuasive complaint letter based on the provided image/document, citizen notes.\n"
-            "Note: If the voice recording is in Hindi or another language, accurately transcribe, translate, and integrate its details into the official English complaint letter.\n\n"
             
             "STEP 1: RELEVANCE & SAFETY CHECK\n"
             "Analyze all inputs carefully. Determine if they relate to a genuine public infrastructure/civic issue.\n"
