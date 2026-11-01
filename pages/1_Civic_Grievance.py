@@ -118,7 +118,11 @@ if submit_button:
                 if not is_key_valid:
                     st.error("❌ Cannot submit: Please fix or remove the invalid API key in the sidebar.")
                 else:
-                    backend_url = os.getenv("BACKEND_URL", "http://localhost:8000") + "/api/civic-grievance"
+                    # Fallback to live Render backend URL when running in production
+                    DEFAULT_BACKEND = "https://civic-grievance-policy-navigator.onrender.com"
+                    BACKEND_HOST = os.getenv("BACKEND_URL", DEFAULT_BACKEND)
+
+                    backend_url = f"{BACKEND_HOST.rstrip('/')}/api/civic-grievance"
                 
                     # Prepare headers to send valid user API key
                     headers = {}
