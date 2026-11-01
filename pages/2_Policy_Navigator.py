@@ -1,12 +1,11 @@
 import sys
 import os
 import streamlit as st
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../problem_2_policy_rag')))
-
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import requests
 import uuid
 from langchain_core.messages import HumanMessage, AIMessage
-from backend_rag.ai_service_rag import chatbot, retrieve_all_threads, ingest_pdf
+from problem_2_policy_rag.backend_rag.ai_service_rag import chatbot, retrieve_all_threads, ingest_pdf
 
 st.set_page_config(page_title="LangGraph Tool & RAG Chatbot", page_icon="🤖", layout="wide")
 

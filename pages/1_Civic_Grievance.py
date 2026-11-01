@@ -131,19 +131,19 @@ if submit_button:
                         os.environ["GEMINI_API_KEY"] = active_key
 
                     # Import and execute Flask handler directly without HTTP call
-                    from ai.service import app as flask_app
+                    from problem_1_civic_grievance.backend.ai_service import app as flask_app
 
                     with flask_app.test_client() as client:
                         headers = {}
                         if active_key:
                             headers["Gemini-Api-Key"] = active_key
 
-                        response = client.post('/api/civic-grievance', data=data, headers=headers, content_type='multipart/form-data')
-                   
-                if response.status_code == 200:
-                    result = response.json()
-                    complaint_letter = result.get("complaint_letter", "")
+                    response = client.post('/api/civic-grievance', data=data, headers=headers, content_type='multipart/form-data')
 
+                if response.status_code == 200:
+                    result = response.get_json()
+                    complaint_letter = result.get("complaint_letter", "")
+                   
                     st.success("✅ Complaint Letter Generated Successfully!")
 
                     # 1. Preview on screen
