@@ -17,7 +17,7 @@ safety_settings = {
 }
 
 app = Flask(__name__)
-
+MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
 @app.route("/api/civic-grievance", methods=["POST"])
 def civic_grievance_reporter():
     try:
@@ -30,7 +30,7 @@ def civic_grievance_reporter():
 
         # Initialize LLM dynamically for this request
         llm = ChatGoogleGenerativeAI(
-            model=os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
+            model=os.getenv("GEMINI_MODEL", "gemini-3.8-flash"),
             google_api_key=api_key,
             temperature=0.3,
             safety_settings=safety_settings

@@ -15,7 +15,7 @@ from audio_recorder_streamlit import audio_recorder
 
 st.set_page_config(page_title="Civic Grievance Reporter", page_icon="🏙️", layout="centered")
 # --- Sidebar API Key Input & Flexible Validation ---
-st.sidebar.markdown("### 🔑 API Key Configuration")-
+st.sidebar.markdown("### 🔑 API Key Configuration")
 user_api_key = st.sidebar.text_input(
     "Enter your Gemini API Key (Optional)", 
     type="password",
