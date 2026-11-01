@@ -39,9 +39,9 @@ def civic_grievance_reporter():
         user_text = request.form.get("text", "")
         authority_level = request.form.get("authority_level", "Auto-Detect Authority (AI Recommended)")
         uploaded_file = request.files.get("image")  # Image or PDF
-        audio_file = request.files.get("audio")      # Recorded voice note (Hindi/English)
 
-        if not uploaded_file and not user_text and not audio_file:
+
+        if not uploaded_file and not user_text:
             return jsonify({"error": "Please provide an image/document, text description, or recorded voice note."}), 400
 
         prompt_instruction = (
@@ -98,15 +98,6 @@ def civic_grievance_reporter():
             })
 
         # Handle Audio Recording Attachment (supports wav/mp3 from audiorecorder)
-        if audio_file:
-            audio_bytes = audio_file.read()
-            encoded_audio = base64.b64encode(audio_bytes).decode("utf-8")
-            audio_mime = audio_file.mimetype or "audio/wav"
-            message_content.append({
-                "type": "image_url", # Gemini multimodal handles audio parts via inline data parts
-                "image_url": f"data:{audio_mime};base64,{encoded_audio}"
-            })
-
         message = HumanMessage(content=message_content)
         response = llm.invoke([message])
         

@@ -110,7 +110,7 @@ CONFIG = {
 }
 
 st.title("🤖 LangGraph Tool & RAG Assistant")
-st.caption("Ask general questions, search the web, calculate math, or query your uploaded PDF!")
+st.caption("Ask general questions, search the web or query your uploaded PDF!")
 
 # Helper to extract clean plain text from messages and history blocks
 def extract_text(content):

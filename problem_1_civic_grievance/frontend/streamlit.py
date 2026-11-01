@@ -4,7 +4,7 @@ from io import BytesIO
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from audio_recorder_streamlit import audio_recorder
+
 
 st.set_page_config(page_title="Civic Grievance Reporter", page_icon="🏙️", layout="centered")
 
@@ -62,17 +62,14 @@ with st.form(key="grievance_form"):
     )
 
     st.markdown("---")
-    st.markdown("🎙️ **Or Record Voice Note (Supports Hindi, English, etc.):**")
-    audio_bytes = audio_recorder(text="Click to record voice note", recording_color="#e8b62c", neutral_color="#6aa36f", icon_size="2x")
-
     submit_button = st.form_submit_button("Generate Complaint Letter", type="primary")
 
 # Processing logic after form submission
 if submit_button:
-    if not uploaded_file and not user_text.strip() and not audio_bytes:
-        st.warning("⚠️ Please provide at least an image/document, text description, or voice recording.")
+    if not uploaded_file and not user_text.strip():
+        st.warning("⚠️ Please provide at least an image/document, text description")
     else:
-        with st.spinner("Analyzing upload, voice notes, and drafting official complaint letter..."):
+        with st.spinner("Analyzing upload and drafting official complaint letter..."):
             try:
                 files = {}
                 data = {
@@ -83,8 +80,6 @@ if submit_button:
                 if uploaded_file:
                     files["image"] = (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)
 
-                if audio_bytes:
-                    files["audio"] = ("voice_note.wav", audio_bytes, "audio/wav")
 
                 backend_url = "http://localhost:8000/api/civic-grievance"
                 response = requests.post(backend_url, data=data, files=files if files else None)
