@@ -1,5 +1,6 @@
 import os
 import base64
+import streamlit as st
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -20,20 +21,21 @@ app = Flask(__name__)
 @app.route("/api/civic-grievance", methods=["POST"])
 def civic_grievance_reporter():
     try:
-        # Extract API key from header if sent by frontend, otherwise fallback to .env
+        # Extract API key from header sent by frontend
         request_api_key = request.headers.get("Gemini-Api-Key")
-        api_key = request_api_key.strip() if request_api_key and request_api_key.strip() else os.getenv("GEMINI_API_KEY", os.getenv("GOOGLE_API_KEY"))
+        api_key = request_api_key.strip() if request_api_key and request_api_key.strip() else os.getenv("GEMINI_API_KEY")
 
         if not api_key:
             return jsonify({"error": "No valid Gemini API key found"}), 400
 
         # Initialize LLM dynamically for this request
         llm = ChatGoogleGenerativeAI(
-            model=os.getenv("GEMINI_MODEL", "gemini-3.8-flash"),
+            model=os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
             google_api_key=api_key,
             temperature=0.3,
             safety_settings=safety_settings
         )
+        # ... rest of your backend logic
         user_text = request.form.get("text", "")
         authority_level = request.form.get("authority_level", "Auto-Detect Authority (AI Recommended)")
         uploaded_file = request.files.get("image")  # Image or PDF

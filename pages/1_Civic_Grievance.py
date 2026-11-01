@@ -15,7 +15,7 @@ from audio_recorder_streamlit import audio_recorder
 
 st.set_page_config(page_title="Civic Grievance Reporter", page_icon="🏙️", layout="centered")
 # --- Sidebar API Key Input & Flexible Validation ---
-st.sidebar.markdown("### 🔑 API Key Configuration")
+st.sidebar.markdown("### 🔑 API Key Configuration")-
 user_api_key = st.sidebar.text_input(
     "Enter your Gemini API Key (Optional)", 
     type="password",
@@ -35,6 +35,7 @@ if user_api_key and user_api_key.strip():
         st.sidebar.error("❌ Key seems too short. Please enter a valid API key.")
         is_key_valid = False
     else:
+        active_key = key_clean  # <--- ASSIGN active_key HERE!
         st.sidebar.success("✅ Custom Gemini Key Loaded!")
 st.title("🏙️ Multimodal Civic Grievance Reporter")
 st.write("Upload a photo/document or record a voice note describing the civic issue in your local language (e.g., Hindi or English).")
@@ -123,6 +124,8 @@ if submit_button:
                 headers = {}
                 if active_key:
                     headers["Gemini-Api-Key"] = active_key
+
+                response = requests.post(backend_url, data=data, files=files if files else None, headers=headers)
                 
                 response = requests.post(backend_url, data=data, files=files if files else None, headers=headers)
                 if response.status_code == 200:
