@@ -1,0 +1,26 @@
+# --- Environment & API Keys (Crucial for Privacy) ---
+.env
+*/.env
+**/.env
+*.env
+
+# --- Local Databases & Chat Checkpoints ---
+*.db
+*.db-shm
+*.db-wal
+chatbot.db*
+
+# --- Python & Virtual Environment Caches ---
+__pycache__/
+*/__pycache__/
+*/*/__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+ENV/
+
+# --- IDE & OS Specific Files ---
+.vscode/
+.DS_Store
+Thumbs.db
