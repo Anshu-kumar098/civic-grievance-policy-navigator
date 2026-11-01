@@ -46,12 +46,13 @@ def civic_grievance_reporter():
 
         prompt_instruction = (
             "You are an expert administrative legal assistant and civic grievance specialist.\n"
-            "Your objective is to draft an authoritative, formal, and legally persuasive complaint letter based on the provided image/document, citizen notes, and/or voice recording.\n"
+            "Your objective is to draft an authoritative, formal, and legally persuasive complaint letter based on the provided image/document, citizen notes.\n"
             "Note: If the voice recording is in Hindi or another language, accurately transcribe, translate, and integrate its details into the official English complaint letter.\n\n"
             
             "STEP 1: RELEVANCE & SAFETY CHECK\n"
             "Analyze all inputs carefully. Determine if they relate to a genuine public infrastructure/civic issue.\n"
             "IF THE CONTENT IS IRRELEVANT (e.g., personal selfies, pets, memes, indoors, or unrelated items):\n"
+            "Note: Screenshots of road damage, potholes, cave-ins, or utility issues MUST be accepted even if they contain UI overlays or image borders.\n"
             "Respond ONLY with: ERROR_IRRELEVANT_CONTENT\n\n"
             
             "STEP 2: CRITICAL FORMATTING & TONE RULES:\n"
@@ -71,7 +72,7 @@ def civic_grievance_reporter():
             "4. SALUTATION: 'Respected Sir/Madam,'\n"
             "5. OPENING PARAGRAPH: State primary issue with exact geographical markers.\n"
             "6. EVIDENCE & OBSERVATIONS (Numbered List):\n"
-            "   - Detail 1: Physical dimensions or visual evidence from image/audio/text.\n"
+            "   - Detail 1: Physical dimensions or visual evidence from image/text.\n"
             "   - Detail 2: Traffic or structural impact.\n"
             "   - Detail 3: Public safety hazard.\n"
             "7. SPECIFIC DEMANDS / ACTION ITEMS (Numbered List):\n"
@@ -108,7 +109,7 @@ def civic_grievance_reporter():
 
         if "ERROR_IRRELEVANT_CONTENT" in complaint_letter:
             return jsonify({
-                "error": "The uploaded files or voice note do not appear to show a public civic issue. Please provide valid details."
+                "error": "The uploaded files or  note do not appear to show a public civic issue. Please provide valid details."
             }), 400
 
         return jsonify({
