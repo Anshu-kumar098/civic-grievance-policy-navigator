@@ -1,6 +1,6 @@
 ⚡ Unified AI Assistant Workspace
 
-A multi-module AI application combining a Multimodal Civic Grievance Reporter and an Agentic Policy Navigator RAG Assistant, powered by LangChain, LangGraph, Streamlit, Flask, and Google Gemini 2.5 Flash.
+A multi-module AI application combining a Multimodal Civic Grievance Reporter and an Agentic Policy Navigator RAG Assistant, powered by LangChain, LangGraph, Streamlit, Flask, and Google Gemini 3.8 Flash.
 
 📌 Project Overview
 
@@ -99,7 +99,7 @@ pip install -r requirements.txt
 Create a .env file in your backend directories or root folder:
 
 GOOGLE_API_KEY=your_default_gemini_api_key_here
-GEMINI_MODEL=gemini-2.5-flash
+GEMINI_MODEL=gemini-3.8-flash
 
 
 💻 Running the Applications
