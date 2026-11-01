@@ -108,8 +108,9 @@ if submit_button:
                     "authority_level": authority_level
                 }
 
-                if uploaded_file:
-                    files["image"] = (uploaded_file.name, uploaded_file.getvalue(), uploaded_file.type)
+                if uploaded_file is not None:
+                    uploaded_file.seek(0)
+                    files["image"] = (uploaded_file.name, uploaded_file.read(), uploaded_file.type)
                 
                 if not is_key_valid:
                     st.error("❌ Cannot submit: Please fix or remove the invalid API key in the sidebar.")
