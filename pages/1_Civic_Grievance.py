@@ -118,18 +118,27 @@ if submit_button:
                 if not is_key_valid:
                     st.error("❌ Cannot submit: Please fix or remove the invalid API key in the sidebar.")
                 else:
-                    # Fallback to live Render backend URL when running in production
-                    DEFAULT_BACKEND = "https://civic-grievance-policy-navigator.onrender.com"
-                    BACKEND_HOST = os.getenv("BACKEND_URL", DEFAULT_BACKEND)
+                    import sys
+                    from pathlib import Path
 
-                    backend_url = f"{BACKEND_HOST.rstrip('/')}/api/civic-grievance"
-                
-                    # Prepare headers to send valid user API key
-                    headers = {}
+                    # Add backend directory to path if not present
+                    backend_dir = str(Path(__file__).resolve().parent.parent / "problem_1_civic_grievance" / "backend")
+                    if backend_dir not in sys.path:
+                        sys.path.append(backend_dir)
+
+                    # Set API key into environment dynamically for the request
                     if active_key:
-                        headers["Gemini-Api-Key"] = active_key
+                        os.environ["GEMINI_API_KEY"] = active_key
 
-                response = requests.post(backend_url, data=data, files=files if files else None, headers=headers)
+                    # Import and execute Flask handler directly without HTTP call
+                    from ai.service import app as flask_app
+
+                    with flask_app.test_client() as client:
+                        headers = {}
+                        if active_key:
+                            headers["Gemini-Api-Key"] = active_key
+
+                        response = client.post('/api/civic-grievance', data=data, headers=headers, content_type='multipart/form-data')
                    
                 if response.status_code == 200:
                     result = response.json()
