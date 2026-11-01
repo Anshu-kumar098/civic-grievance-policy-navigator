@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from typing import TypedDict, Annotated, Any, Dict, Optional
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.messages import BaseMessage, HumanMessage
+from langchain_core.runnables import RunnableConfig
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langgraph.checkpoint.sqlite import SqliteSaver
@@ -153,9 +154,24 @@ class ChatState(TypedDict):
     messages: Annotated[list[BaseMessage], add_messages]
 
 # 4. Graph Nodes
-def chat_node(state: ChatState):
+def chat_node(state: ChatState, config: RunnableConfig):
+    # Check if a custom API key was passed via the config object
+    user_key = config.get("configurable", {}).get("api_key")
+    
+    if user_key:
+        # Dynamically instantiate LLM with the user's custom API key
+        dynamic_llm = ChatGoogleGenerativeAI(
+            model=MODEL_NAME,
+            google_api_key=user_key,
+            temperature=0.3,
+            max_retries=5
+        )
+        llm_to_use = dynamic_llm.bind_tools(tools)
+    else:
+        llm_to_use = llm_with_tools
+
     messages = state["messages"]
-    response = llm_with_tools.invoke(messages)
+    response = llm_to_use.invoke(messages)
     return {"messages": [response]}
 
 tool_node = ToolNode(tools)

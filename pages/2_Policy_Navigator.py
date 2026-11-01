@@ -100,7 +100,15 @@ for tid in existing_threads:
         st.rerun()
 
 # 3. Main Chat Interface
-CONFIG = {"configurable": {"thread_id": st.session_state["thread_id"]}}
+# # 3. Main Chat Interface (Replace around line 102)
+current_api_key = st.session_state.get("navigator_api_key") or os.getenv("GEMINI_API_KEY")
+
+CONFIG = {
+    "configurable": {
+        "thread_id": st.session_state["thread_id"],
+        "api_key": current_api_key
+    }
+}
 
 st.title("🤖 LangGraph Tool & RAG Assistant")
 st.caption("Ask general questions, search the web, calculate math, or query your uploaded PDF!")
