@@ -1,13 +1,13 @@
- ### 🚀 [Live Prototype Link](https://civic-grievance-policy-navigator.onrender.com)
-⚡ Unified AI Assistant Workspace
+ ###  [Live Prototype Link](https://civic-grievance-policy-navigator.onrender.com)
+ Unified AI Assistant Workspace
 
 A multi-module AI application combining a Multimodal Civic Grievance Reporter and an Agentic Policy Navigator RAG Assistant, powered by LangChain, LangGraph, Streamlit, Flask, and Google Gemini 3.8 Flash.
 
-📌 Project Overview
+ Project Overview
 
 This workspace provides a centralized, dual-application suite designed to process complex multimodal user inputs and domain-specific documents:
 
-1. 🏛️ Civic Grievance Reporter (Problem 1)
+1.  Civic Grievance Reporter (Problem 1)
 
 Multimodal Ingestion: Accepts images/documents, user description text.
 
@@ -27,7 +27,7 @@ Web Research Integration: Integrates DuckDuckGo web search tools for real-time e
 
 Session & Thread Management: Allows creation, persistence, and navigation of multiple independent chat sessions directly from the sidebar.
 
-🛠️ Tech Stack & Architecture
+ Tech Stack & Architecture
 
 Frontend: Streamlit (Multi-page App Dashboard with custom CSS and instant navigation)
 
@@ -43,7 +43,7 @@ PDF Engine: ReportLab
 
 Audio Processing: audio-recorder-streamlit
 
-🔑 Dynamic API Key Management & Real-time Validation
+ Dynamic API Key Management & Real-time Validation
 
 To prevent shared quota exhaustion during evaluator testing, both workspace modules feature real-time sidebar API key validation:
 
@@ -63,7 +63,7 @@ Problem 1 (Flask): Transmits custom key via HTTP request headers (X-Gemini-Api-K
 
 Problem 2 (LangGraph): Dynamically updates session environment (os.environ["GOOGLE_API_KEY"]).
 
-🚀 Quick Start & Local Setup
+ Quick Start & Local Setup
 
 1. Prerequisites
 
